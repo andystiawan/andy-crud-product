@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.37bf3cec.css",
-    "main.js": "/static/js/main.fb7bb099.js",
-    "static/js/787.a03e2fc2.chunk.js": "/static/js/787.a03e2fc2.chunk.js",
-    "index.html": "/index.html",
-    "main.37bf3cec.css.map": "/static/css/main.37bf3cec.css.map",
-    "main.fb7bb099.js.map": "/static/js/main.fb7bb099.js.map",
-    "787.a03e2fc2.chunk.js.map": "/static/js/787.a03e2fc2.chunk.js.map"
+    "main.css": "/andy-crud-product/static/css/main.37bf3cec.css",
+    "main.js": "/andy-crud-product/static/js/main.863cb05a.js",
+    "static/js/787.a03e2fc2.chunk.js": "/andy-crud-product/static/js/787.a03e2fc2.chunk.js",
+    "index.html": "/andy-crud-product/index.html",
+    "main.37bf3cec.css.map": "/andy-crud-product/static/css/main.37bf3cec.css.map",
+    "main.863cb05a.js.map": "/andy-crud-product/static/js/main.863cb05a.js.map",
+    "787.a03e2fc2.chunk.js.map": "/andy-crud-product/static/js/787.a03e2fc2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.37bf3cec.css",
-    "static/js/main.fb7bb099.js"
+    "static/js/main.863cb05a.js"
   ]
 }
