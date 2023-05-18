@@ -5,6 +5,7 @@ import { deleteProducts, getProducts, getUser } from "../../network/services";
 import Loading from "../../component/Loading/Loading";
 import AddProduct from "../../component/AddProduct/AddProduct";
 import { SuccessAlert } from "../../component/Alert/Alert";
+import { Button } from "reactstrap";
 
 export default function Homes() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,31 +30,41 @@ export default function Homes() {
   // Fetch product data from API
   useEffect(() => {
     const fetchData = async () => {
+      if (!localStorage.getItem("token")) {
+        window.location.replace("/Login");
+      }
       setisLoading(true);
-      await getProducts
-        .then((response) => {
-          setProductList([...response.data.data]);
-        })
-        .catch((error) => {
-          if (
-            error?.response?.status === 401 ||
-            error?.response?.status === 403
-          ) {
-            navigate("/Login", { replace: true });
-          }
-        });
-      await getUser
-        .then((response) => {
-          setprofileName(response.data.username);
-        })
-        .catch((error) => {
-          if (
-            error?.response?.status === 401 ||
-            error?.response?.status === 403
-          ) {
-            navigate("/Login", { replace: true });
-          }
-        });
+      try {
+        await getProducts()
+          .then((response) => {
+            setProductList(response.data.data);
+          })
+          .catch((error) => {
+            if (
+              error?.response?.status === 401 ||
+              error?.response?.status === 403
+            ) {
+              navigate("/Login", { replace: true });
+            }
+          });
+
+        await getUser()
+          .then((response) => {
+            setprofileName(response.data.username);
+          })
+          .catch((error) => {
+            if (
+              error?.response?.status === 401 ||
+              error?.response?.status === 403
+            ) {
+              navigate("/Login", { replace: true });
+            }
+          });
+      } catch (error) {
+        console.log("errrr", error);
+        return;
+      }
+
       setisLoading(false);
     };
     fetchData();
@@ -137,9 +148,22 @@ export default function Homes() {
     }, 1000);
   };
 
+  const Logout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <div className="home-container">
       <h2 className="profile-name">{profileName}</h2>
+      <Button
+        color="dark"
+        size="lg"
+        className="mb-2 p-2"
+        onClick={() => Logout()}
+      >
+        Keluar
+      </Button>
       <div className="product-list">
         <div className="d-flex justify-content-between">
           <h3>Product List</h3>

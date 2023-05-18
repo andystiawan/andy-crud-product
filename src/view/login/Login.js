@@ -1,34 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { URL } from "../../network/config";
-import "./Login.css";
 import Loading from "../../component/Loading/Loading";
+import "./Login.css";
+import axios from "axios";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      window.location.replace("/");
+    }
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
     localStorage.clear();
-    try {
-      const response = await axios.post(`${URL}/login`, {
-        username,
-        password,
-      });
-      const { token } = response.data;
-      localStorage.setItem("token", token);
-      setIsLoading(false);
-      navigate("/", { replace: true });
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error);
-    }
+    setIsLoading(true);
+    const response = await axios.post(`${URL}/login`, {
+      username,
+      password,
+    });
+    const { token } = response.data;
+    localStorage.setItem("token", token);
+    setIsLoading(false);
+    navigate("/", { replace: true });
   };
 
   return (

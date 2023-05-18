@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "./Register.css";
 import axios from "axios";
@@ -10,6 +10,12 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      window.location.replace("/");
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -1,13 +1,23 @@
 import axios from "axios";
 import { URL } from "./config";
 
-export const getProducts = axios.get(`${URL}/products`, {
-  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-});
+export const getProducts = async () => {
+  return await axios
+    .get(`${URL}/products`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+    .then((res) => res)
+    .catch((err) => err);
+};
 
-export const getUser = axios.get(`${URL}/user`, {
-  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-});
+export const getUser = async () => {
+  return await axios
+    .get(`${URL}/user`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+    .then((res) => res)
+    .catch((err) => err);
+};
 
 export const postProducts = (body) =>
   axios.post(`${URL}/products`, body, {
