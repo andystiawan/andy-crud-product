@@ -5,10 +5,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { URL } from "../../network/config";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../component/Loading/Loading";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await axios.post(`${URL}/register`, {
         username,
@@ -30,8 +32,10 @@ export default function Register() {
 
       // Set the JWT token in local storage or session storage
       localStorage.setItem("token", token);
-      navigate("/home", { replace: true });
+      navigate("/", { replace: true });
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       // Handle error, display error message, or perform any other actions
       console.error(error);
     }
@@ -68,6 +72,7 @@ export default function Register() {
           <Link to={"/Login"}>Login</Link>
         </div>
       </Form>
+      <Loading isLoading={isLoading} />
     </div>
   );
 }
